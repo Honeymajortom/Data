@@ -1,18 +1,21 @@
 from flask import Flask, request, jsonify
 import util
 
+util.load_saved_artifacts()
+
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return "Welcome to the Home Page!"
 
-@app.route('/get_location_names', methods=['GET'])
+@app.route('/get_location_names')
 def get_location_names():
     response = jsonify({
         'locations': util.get_location_names()
     })
     response.headers.add('Access-Control-Allow-Origin', '*')
+    print(response)
     return response
 
 @app.route('/predict_home_price', methods=['POST'])
